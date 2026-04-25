@@ -70,7 +70,7 @@ function App() {
                 Bệnh viện Ung Bướu • Khoa Gây mê hồi sức
               </h2>
               <h1 className="font-black text-gray-900 text-base md:text-xl tracking-tighter uppercase">
-                CHẨN ĐOÁN ĐAU SAU MỔ
+                DỰ ĐOÁN ĐAU SAU MỔ
               </h1>
             </div>
           </div>
