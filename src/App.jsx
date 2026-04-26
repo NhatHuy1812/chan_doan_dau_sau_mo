@@ -72,15 +72,12 @@ function App() {
       
       {/* Header */}
       <header className="bg-white/90 backdrop-blur-md border-b border-gray-200 px-6 py-4 sticky top-0 z-50 shadow-sm no-print">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img src={surgeryIcon} alt="Logo" className="w-10 h-10" />
-            <div>
-              <h2 className="text-[10px] font-bold text-blue-600 uppercase tracking-widest leading-tight">Bệnh viện Ung Bướu • Khoa Gây mê hồi sức</h2>
-              <h1 className="font-black text-gray-900 text-lg md:text-xl uppercase tracking-tighter">Dự đoán đau sau mổ</h1>
-            </div>
+        <div className="max-w-6xl mx-auto flex items-center gap-4">
+          <img src={surgeryIcon} alt="Logo" className="w-10 h-10" />
+          <div>
+            <h2 className="text-[10px] font-bold text-blue-600 uppercase tracking-widest leading-tight">Bệnh viện Ung Bướu • Khoa Gây mê hồi sức</h2>
+            <h1 className="font-black text-gray-900 text-lg md:text-xl uppercase tracking-tighter">Dự đoán đau sau mổ</h1>
           </div>
-          <button onClick={() => setShowInfo(true)} className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-black shadow-lg hover:scale-110 transition-all">i</button>
         </div>
       </header>
 
@@ -89,15 +86,25 @@ function App() {
           
           {/* CỘT TRÁI: NHẬP LIỆU */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-              <p className="text-[11px] font-black text-gray-400 uppercase mb-4 italic tracking-widest">Thông tin & Chỉ số lâm sàng</p>
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 relative">
+              <div className="flex justify-between items-center mb-4">
+                <p className="text-[11px] font-black text-gray-400 uppercase italic tracking-widest">Thông tin & Chỉ số lâm sàng</p>
+                {/* NÚT i THU NHỎ ĐƯA XUỐNG ĐÂY */}
+                <button 
+                  onClick={() => setShowInfo(true)} 
+                  className="w-6 h-6 rounded-full bg-slate-200 hover:bg-blue-600 hover:text-white text-slate-500 text-[10px] font-black transition-all flex items-center justify-center"
+                >
+                  i
+                </button>
+              </div>
+
               <div className="space-y-1">
                 <div className="flex items-center justify-between py-3 border-b border-gray-100">
                   <span className="text-sm font-bold text-gray-700 uppercase">Họ và Tên</span>
-                  <input type="text" value={patientName} onChange={(e) => setPatientName(e.target.value)} placeholder="Nhập tên bệnh nhân..." className="bg-gray-100 rounded-lg px-3 py-2 text-sm font-bold w-[220px] text-right focus:ring-2 focus:ring-blue-500 outline-none" />
+                  <input type="text" value={patientName} onChange={(e) => setPatientName(e.target.value)} placeholder="Nhập tên..." className="bg-gray-100 rounded-lg px-3 py-2 text-sm font-bold w-[200px] text-right focus:ring-2 focus:ring-blue-500 outline-none" />
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                  <span className="text-sm font-bold text-gray-700 uppercase">Ngày tháng năm sinh</span>
+                  <span className="text-sm font-bold text-gray-700 uppercase">Ngày sinh</span>
                   <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} className="bg-gray-100 rounded-lg px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none" />
                 </div>
                 <ToggleBtn label="Giới tính" active={data.is_female} onClick={(v) => setData({...data, is_female: v})} options={{ yes: "Nữ", no: "Nam" }} />
@@ -163,7 +170,7 @@ function App() {
         </div>
       </main>
 
-      {/* MODAL CHI TIẾT CA CŨ (ĐẦY ĐỦ CHỈ SỐ) */}
+      {/* MODAL CHI TIẾT CA CŨ */}
       {selectedHistoryItem && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md">
           <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in">
@@ -191,7 +198,7 @@ function App() {
               <h2 className="text-2xl font-black text-blue-700 uppercase tracking-tighter">Thông tin phần mềm</h2>
               <button onClick={() => setShowInfo(false)} className="text-3xl font-bold text-gray-300 hover:text-gray-900 transition-colors">✕</button>
             </div>
-            <div className="space-y-8 text-sm text-gray-600 font-medium">
+            <div className="space-y-8 text-sm text-gray-600 font-medium text-justify">
               <section>
                 <h3 className="text-blue-600 font-black uppercase text-xs tracking-widest mb-3">1. Thông tin chung</h3>
                 <p>Mô hình dựa trên hồi quy Logistic để tiên lượng xác suất đau trung bình-nặng trong 24h đầu sau mổ tại Bệnh viện Ung Bướu.</p>
@@ -219,7 +226,7 @@ function App() {
         </div>
       )}
 
-      {/* --- PHẦN BÁO CÁO KHI IN (PDF) --- */}
+      {/* --- PHẦN BÁO CÁO KHI IN --- */}
       <div className="hidden print-report p-12 bg-white">
         <div className="border-b-4 border-blue-700 pb-4 flex justify-between items-end">
           <div><p className="font-bold text-blue-700 uppercase">BV Ung Bướu TP.HCM</p><p className="text-xs uppercase text-gray-400">Khoa Gây mê hồi sức</p></div>
