@@ -89,7 +89,6 @@ function App() {
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 relative">
               <div className="flex justify-between items-center mb-4">
                 <p className="text-[11px] font-black text-gray-400 uppercase italic tracking-widest">Thông tin & Chỉ số lâm sàng</p>
-                {/* NÚT i THU NHỎ ĐƯA XUỐNG ĐÂY */}
                 <button 
                   onClick={() => setShowInfo(true)} 
                   className="w-6 h-6 rounded-full bg-slate-200 hover:bg-blue-600 hover:text-white text-slate-500 text-[10px] font-black transition-all flex items-center justify-center"
@@ -248,9 +247,11 @@ function App() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative z-10 py-6 text-center text-gray-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-auto no-print">
-        BV Ung Bướu • Khoa Gây mê hồi sức • 2026
+      {/* FOOTER ĐÃ CẬP NHẬT: HIỂN THỊ RÕ RÀNG TRÊN NỀN TỐI */}
+      <footer className="relative z-10 py-5 text-center bg-slate-900 border-t border-slate-800 no-print mt-auto shadow-[0_-10px_25px_rgba(0,0,0,0.1)]">
+        <p className="text-white font-black text-[11px] uppercase tracking-[0.4em] drop-shadow-md">
+          BV Ung Bướu <span className="text-blue-500 mx-2">•</span> Khoa Gây mê hồi sức <span className="text-blue-500 mx-2">•</span> 2026
+        </p>
       </footer>
 
       <style>{`
