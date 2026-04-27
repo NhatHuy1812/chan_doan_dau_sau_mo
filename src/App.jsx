@@ -55,11 +55,13 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-gray-900 relative bg-slate-50">
+      {/* Background Section */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat grayscale-[20%]" style={{ backgroundImage: `url(${backgroundImage})` }} />
         <div className="absolute inset-0 bg-slate-100/40 backdrop-blur-[6px]" /> 
       </div>
       
+      {/* Header */}
       <header className="bg-white/90 backdrop-blur-md border-b border-gray-200 px-6 py-4 sticky top-0 z-50 shadow-sm">
         <div className="max-w-6xl mx-auto flex items-center gap-4">
           <img src={surgeryIcon} alt="Logo" className="w-10 h-10" />
@@ -77,7 +79,7 @@ function App() {
           <div className="lg:col-span-7 space-y-6">
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 relative">
               <div className="flex justify-between items-center mb-4">
-                <p className="text-[11px] font-black text-gray-400 uppercase italic tracking-widest">Thông tin & Chỉ số lâm sàng</p>
+                <p className="text-[11px] font-black text-gray-400 uppercase italic tracking-widest">Dữ liệu lâm sàng</p>
                 <button onClick={() => setShowInfo(true)} className="w-6 h-6 rounded-full bg-slate-200 hover:bg-blue-600 hover:text-white text-slate-500 text-[10px] font-black transition-all flex items-center justify-center">i</button>
               </div>
 
@@ -111,7 +113,7 @@ function App() {
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white rounded-2xl shadow-xl border border-blue-50 overflow-hidden">
               <div className="bg-slate-800 px-6 py-3 flex justify-between items-center">
-                <h2 className="text-white font-bold uppercase text-[10px] tracking-widest">Xác suất tiên lượng (P)</h2>
+                <h2 className="text-white font-bold uppercase text-[10px] tracking-widest">Xác suất (P)</h2>
               </div>
               <div className="p-8 text-center">
                 {result ? (
@@ -123,10 +125,9 @@ function App() {
                         {result.risk}
                       </div>
                       
-                      {/* Dòng lưu ý chỉ dành cho nguy cơ cao theo yêu cầu chị Thư Nấm */}
                       {result.percent > 50 && (
                         <div className="mt-6 p-4 bg-red-50 border-2 border-red-200 rounded-2xl text-red-700 animate-bounce">
-                           <p className="text-[11px] font-black uppercase mb-1">⚠️ Lưu ý lâm sàng:</p>
+                           <p className="text-[11px] font-black uppercase mb-1">⚠️ Lưu ý:</p>
                            <p className="text-sm font-bold">Theo dõi NRS sát - Báo BS can thiệp giảm đau sớm</p>
                         </div>
                       )}
@@ -135,18 +136,17 @@ function App() {
                 ) : (
                   <div className="py-24 opacity-20 flex flex-col items-center">
                     <div className="text-7xl mb-4">🩺</div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em]">Sẵn sàng phân tích dữ liệu</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em]">Sẵn sàng phân tích</p>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* LỊCH SỬ GẦN ĐÂY */}
             {history.length > 0 && (
               <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md">
                 <h3 className="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-widest text-center">Các ca đã đánh giá</h3>
                 <div className="space-y-2">
-                  {history.map((item, idx) => (
+                  {history.map((item) => (
                     <button key={item.id} onClick={() => setSelectedHistoryItem(item)} className="w-full flex items-center justify-between p-3 bg-slate-50 hover:bg-white rounded-xl border border-transparent hover:border-blue-200 transition-all shadow-sm">
                       <div className="text-left leading-tight">
                         <p className="text-[9px] font-bold text-gray-400">{item.time}</p>
@@ -162,13 +162,49 @@ function App() {
         </div>
       </main>
 
-      {/* MODAL CHI TIẾT */}
+      {/* MODAL THÔNG TIN PHẦN MỀM (HOÀN CHỈNH) */}
+      {showInfo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto animate-in zoom-in duration-300">
+            <div className="flex justify-between items-center mb-8 border-b pb-4">
+              <h2 className="text-2xl font-black text-blue-700 uppercase tracking-tighter">Thông tin phần mềm</h2>
+              <button onClick={() => setShowInfo(false)} className="text-3xl font-bold text-gray-300 hover:text-gray-900 transition-colors">✕</button>
+            </div>
+            <div className="space-y-8 text-sm text-gray-600 font-medium text-justify">
+              <section>
+                <h3 className="text-blue-600 font-black uppercase text-xs tracking-widest mb-3">1. Thông tin chung</h3>
+                <p>Mô hình dựa trên hồi quy Logistic để <strong>dự báo</strong> xác suất đau trung bình-nặng trong <strong>1-2h sau mổ</strong> tại Bệnh viện Ung Bướu TP.HCM.</p>
+              </section>
+              <section>
+                <h3 className="text-blue-600 font-black uppercase text-xs tracking-widest mb-3">2. Mục tiêu</h3>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Cá thể hóa phác đồ giảm đau cho từng bệnh nhân.</li>
+                  <li>Nhận diện sớm các ca có nguy cơ cao để can thiệp chủ động.</li>
+                </ul>
+              </section>
+              <section>
+                <h3 className="text-blue-600 font-black uppercase text-xs tracking-widest mb-3">3. Hướng dẫn sử dụng</h3>
+                <p>Nhập năm sinh và chọn các yếu tố lâm sàng tương ứng của bệnh nhân, sau đó nhấn "Phân tích kết quả" để nhận giá trị xác suất P.</p>
+              </section>
+              <section>
+                <h3 className="text-red-600 font-black uppercase text-xs tracking-widest mb-3">4. Lưu ý</h3>
+                <div className="bg-red-50 p-4 rounded-xl border border-red-100 italic font-bold text-red-800">
+                  Kết quả <strong>dự báo</strong> chỉ mang tính chất tham khảo. Quyết định điều trị cuối cùng thuộc về Bác sĩ Gây mê dựa trên thực tế lâm sàng.
+                </div>
+              </section>
+            </div>
+            <button onClick={() => setShowInfo(false)} className="w-full mt-10 bg-blue-600 text-white py-4 rounded-xl font-black uppercase shadow-md hover:bg-blue-700 transition-colors">Đã hiểu</button>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL CHI TIẾT CA CŨ */}
       {selectedHistoryItem && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in duration-300">
             <h2 className="text-xl font-black text-slate-800 uppercase mb-6 border-b pb-4">Chi tiết chỉ số</h2>
             <div className="space-y-2.5 mb-8 text-sm">
-              <div className="flex justify-between border-b border-gray-50 pb-1"><span className="text-gray-400 font-bold uppercase text-[10px]">Tuổi tính toán:</span><span className="font-black">{selectedHistoryItem.settings.age} tuổi</span></div>
+              <div className="flex justify-between border-b border-gray-50 pb-1"><span className="text-gray-400 font-bold uppercase text-[10px]">Tuổi:</span><span className="font-black">{selectedHistoryItem.settings.age} tuổi</span></div>
               <div className="flex justify-between border-b border-gray-50 pb-1"><span className="text-gray-400 font-bold uppercase text-[10px]">Giới tính:</span><span className="font-black">{selectedHistoryItem.settings.is_female ? 'Nữ' : 'Nam'}</span></div>
               <div className="flex justify-between border-b border-gray-50 pb-1"><span className="text-gray-400 font-bold uppercase text-[10px]">ASA ≥ III:</span><span className="font-black">{selectedHistoryItem.settings.asa_ge3 ? 'Có' : 'Không'}</span></div>
               <div className="flex justify-between border-b border-gray-50 pb-1"><span className="text-gray-400 font-bold uppercase text-[10px]">Lo âu:</span><span className="font-black">{selectedHistoryItem.settings.high_anxiety ? 'Có' : 'Không'}</span></div>
@@ -177,31 +213,6 @@ function App() {
               <div className="flex justify-between border-b border-gray-50 pb-1"><span className="text-gray-400 font-bold uppercase text-[10px]">Non-opioid trong mổ:</span><span className="font-black">{selectedHistoryItem.settings.non_opioid ? 'Có' : 'Không'}</span></div>
             </div>
             <button onClick={() => setSelectedHistoryItem(null)} className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest">Đóng lại</button>
-          </div>
-        </div>
-      )}
-
-      {/* MODAL THÔNG TIN */}
-      {showInfo && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto animate-in zoom-in">
-            <div className="flex justify-between items-center mb-8 border-b pb-4">
-              <h2 className="text-2xl font-black text-blue-700 uppercase tracking-tighter">Thông tin ứng dụng</h2>
-              <button onClick={() => setShowInfo(false)} className="text-3xl font-bold text-gray-300 hover:text-gray-900 transition-colors">✕</button>
-            </div>
-            <div className="space-y-6 text-sm text-gray-600 font-medium text-justify">
-              <section>
-                <h3 className="text-blue-600 font-black uppercase text-xs tracking-widest mb-2">1. Phạm vi áp dụng</h3>
-                <p>Mô hình tiên lượng xác suất đau trung bình-nặng trong 24h đầu sau mổ dựa trên nghiên cứu lâm sàng tại BV Ung Bướu TP.HCM.</p>
-              </section>
-              <section>
-                <h3 className="text-red-600 font-black uppercase text-xs tracking-widest mb-2">2. Cảnh báo quan trọng</h3>
-                <div className="bg-red-50 p-4 rounded-xl border border-red-100 italic font-bold text-red-800">
-                  Phần mềm chỉ hỗ trợ đánh giá nguy cơ. Mọi chỉ định lâm sàng cuối cùng phải do Bác sĩ Gây mê thực hiện dựa trên tình trạng thực tế của bệnh nhân.
-                </div>
-              </section>
-            </div>
-            <button onClick={() => setShowInfo(false)} className="w-full mt-10 bg-blue-600 text-white py-4 rounded-xl font-black uppercase shadow-md">Đã hiểu</button>
           </div>
         </div>
       )}
