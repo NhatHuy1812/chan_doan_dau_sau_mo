@@ -18,7 +18,7 @@ const Gauge = ({ value }) => {
   return (
     <div className="relative w-48 h-24 mx-auto overflow-hidden">
       <div className="absolute top-0 left-0 w-48 h-48 rounded-full border-[18px] border-gray-100" />
-      <div className="absolute top-0 left-0 w-48 h-48 rounded-full border-[18px] border-transparent border-t-green-500 border-r-yellow-500 border-l-red-500 rotate-45 opacity-30" />
+      <div className="absolute top-0 left-0 w-48 h-48 rounded-full border-[18px] border-transparent border-l-green-500 border-r-purple-500 border-t-red-500 rotate-45 opacity-40" />
       <div className="absolute bottom-0 left-1/2 w-1 h-20 bg-slate-800 origin-bottom -translate-x-1/2 transition-transform duration-1000" style={{ transform: `translateX(-50%) rotate(${rotation}deg)` }} />
       <div className="absolute bottom-0 left-1/2 w-4 h-4 bg-slate-800 rounded-full -translate-x-1/2 translate-y-1/2 border-4 border-white" />
     </div>
@@ -219,7 +219,7 @@ function App() {
 
       <footer className="relative z-10 py-5 text-center bg-slate-900 border-t border-slate-800 mt-auto">
         <p className="text-white font-black text-[11px] uppercase tracking-[0.4em]">
-          BV Ung Bướu <span className="text-blue-500 mx-2">•</span> Khoa Gây mê hồi sức <span className="text-blue-500 mx-2">•</span> 2026
+          LƯU HÀNH NỘI BỘ
         </p>
       </footer>
     </div>
